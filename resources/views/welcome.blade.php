@@ -61,9 +61,20 @@
                 <li class="nav-item">
                   <a class="page-scroll" href="#pricing">Pricing</a>
                 </li>
+                @if(!Auth::user())
                 <li class="nav-item">
                   <a class="page-scroll-login" href="{{route('login')}}">Login</a>
                 </li>
+                @endif
+                @if(Auth::user())
+                <form class="nav-item" action="{{route('logout')}}" method="POST">
+                    @csrf
+                  <button class="logout"  type="submit">Logout</button>
+                </form>
+                <li class="nav-item user-position">
+                    <span class="user-name nav-item">{{Auth::user()->name }}</span>
+                  </li>
+                @endif
               </ul>
             </div>
 
@@ -129,7 +140,7 @@
   <!--====== SIDEBAR PART ENDS ======-->
 
   <!-- Start header Area -->
-  <section id="hero-area" class="header-area header-eight">
+  <section id="hero-area" class="header-area header-eight" @if(!Auth::user()) style="opacity: 0.1" @endif>
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 col-md-12 col-12">

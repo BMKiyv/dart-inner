@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,31 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::domain('admin.{APP_URL}')->middleware(['isadmin'])->group(function () {
+    Route::get('/', function () {
+        return view('admin');
+    });
+    Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+    
+});
+
+Route::post('/to-home',[App\Http\Controllers\AdminController::class,'to_home'])->name('to_home');
 
 Route::get('/', function () {
     return view('welcome');
 })->name('first');
 
+Route::domain('{APP_URL}')->middleware(['isadmin'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('first');
+    Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+    
+})->name('hostdomain');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->name('login');
+Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+
+//Route::get('',['AdminController@index','prefix'=>'admin', 'middleware'=>'isadmin']);

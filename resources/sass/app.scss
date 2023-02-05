@@ -8,3 +8,17 @@
     color: aquamarine;
     background-color: burlywood;
 }
+.logout{
+    border: none;
+    background: inherit;
+    color: var(--bs-light);
+    line-height: 70px;
+}
+.user-name {
+    color: var(--bs-light);
+    line-height: 70px;
+}
+.user-position{
+    width: 400px;
+    text-align: center;
+}
