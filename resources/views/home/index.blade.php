@@ -1,169 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <!--====== Required meta tags ======-->
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-  <!--====== Title ======-->
-  <title>SATD-inner</title>
-
-  <!--====== Favicon Icon ======-->
-  <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/svg" />
-
-  {{-- <!--====== Bootstrap css ======-->
-  <link rel="stylesheet" href="../../public/assets/css/bootstrap.min.css" />
-
-  <!--====== Line Icons css ======-->
-  <link rel="stylesheet" href="../../public/assets/css/lineicons.css" />
-
-  <!--====== Tiny Slider css ======-->
-  <link rel="stylesheet" href="../../public/assets/css/tiny-slider.css" />
-
-  <!--====== gLightBox css ======-->
-  <link rel="stylesheet" href="../../public/assets/css/glightbox.min.css" /> --}}
-
-  {{-- <link rel="stylesheet" href="style.css" /> --}}
-  @vite(['resources/sass/app.scss', 'resources/js/app.js','resources/js/bootstrap.bundle.min.js','resources/js/glightbox.min.js','resources/js/tiny-slider.js'])
-</head>
-
-<body>
-
-  <!--====== NAVBAR NINE PART START ======-->
-
-  <section class="navbar-area navbar-nine">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="index.html">
-              <img src="assets/images/white-logo.svg" alt="Logo" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNine"
-              aria-controls="navbarNine" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="toggler-icon"></span>
-              <span class="toggler-icon"></span>
-              <span class="toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse sub-menu-bar" id="navbarNine">
-              <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                  <a class="page-scroll active" href="#hero-area">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="page-scroll" href="#services">Services</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="page-scroll" href="#pricing">Pricing</a>
-                </li>
-                @if(!Auth::user())
-                <li class="nav-item">
-                  <a class="page-scroll-login" href="{{route('login')}}">Login</a>
-                </li>
-                @endif
-                @if(Auth::user())
-                <form class="nav-item" action="{{route('logout')}}" method="POST">
-                    @csrf
-                  <button class="logout"  type="submit">Logout</button>
-                </form>
-                @if(Auth::user()->is_admin===1)
-                <li class="nav-item">
-                  <a class="page-scroll-login" style="width: max-content;" href="{{route('admin',[str_replace('http://', '',$GLOBALS['_ENV']['APP_URL']),'user'=>Auth::user()])}}">To admin page</a>
-                </li>
-                @endif
-                <li class="nav-item user-position">
-                    <span class="user-name nav-item">{{Auth::user()->name }}</span>
-                  </li>
-                @endif
-              </ul>
-            </div>
-
-            <div class="navbar-btn d-none d-lg-inline-block">
-              <a class="menu-bar" href="#side-menu-left"><i class="lni lni-menu"></i></a>
-            </div>
-          </nav>
-          <!-- navbar -->
-        </div>
-      </div>
-      <!-- row -->
+@extends('layouts.main')
+@section('title', 'Головна')
+@section('content')
+@if(!Auth::user())
+ <div class="fluid-container header-area header-eight">
+    <div class="row">
+        <h2 style="text-transform:uppercase;text-align:center;color:white;">Вам необхідно увійти</h2>
     </div>
-    <!-- container -->
-  </section>
-
-  <!--====== NAVBAR NINE PART ENDS ======-->
-
-  <!--====== SIDEBAR PART START ======-->
-
-  <div class="sidebar-left">
-    <div class="sidebar-close">
-      <a class="close" href="#close"><i class="lni lni-close"></i></a>
-    </div>
-    <div class="sidebar-content">
-      <div class="sidebar-logo">
-        <a href="index.html"><img src="assets/images/logo.svg" alt="Logo" /></a>
-      </div>
-      <p class="text">Lorem ipsum dolor sit amet adipisicing elit. Sapiente fuga nisi rerum iusto intro.</p>
-      <!-- logo -->
-      <div class="sidebar-menu">
-        <h5 class="menu-title">Quick Links</h5>
-        <ul>
-          <li><a href="javascript:void(0)">About Us</a></li>
-          <li><a href="javascript:void(0)">Our Team</a></li>
-          <li><a href="javascript:void(0)">Latest News</a></li>
-          <li><a href="javascript:void(0)">Contact Us</a></li>
-        </ul>
-      </div>
-      <!-- menu -->
-      <div class="sidebar-social align-items-center justify-content-center">
-        <h5 class="social-title">Follow Us On</h5>
-        <ul>
-          <li>
-            <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-          </li>
-          <li>
-            <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-          </li>
-          <li>
-            <a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a>
-          </li>
-          <li>
-            <a href="javascript:void(0)"><i class="lni lni-youtube"></i></a>
-          </li>
-        </ul>
-      </div>
-      <!-- sidebar social -->
-    </div>
-    <!-- content -->
-  </div>
-  <div class="overlay-left"></div>
-
-  <!--====== SIDEBAR PART ENDS ======-->
-
-  <!-- Start header Area -->
-  <section id="hero-area" class="header-area header-eight" @if(!Auth::user()) style="opacity: 0.1" @endif>
+ </div>
+@endif
+@if(Auth::user())
+<section id="hero-area" class="header-area header-eight" >
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 col-md-12 col-12">
           <div class="header-content">
-            <h1 style="text-transform:uppercase">This will be inner site of State Agency for Tourism Development  of Ukraine</h1>
+            <h1 style="text-transform:uppercase">Внутрішній сайт Державного агентства розвитку туризму України</h1>
             <p>
-              We are a digital agency that helps brands to achieve their
-              business outcomes. We see technology as a tool to create amazing
-              things.
+              Державне агентство розвитку туризму (ДАРТ) є центральним органом виконавчої влади, який реалізує державну політику в галузі туризму та курортів України.
+              State Agency for Tourism Development of Ukraine (SATD)
             </p>
             <div class="button">
-              <a href="javascript:void(0)" class="btn primary-btn">Get Started</a>
+
               <a href="https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM"
                 class="glightbox video-button">
                 <span class="btn icon-btn rounded-full">
                   <i class="lni lni-play"></i>
                 </span>
-                <span class="text">Watch Intro</span>
+                <span class="text">Дивитись про нас</span>
               </a>
             </div>
           </div>
@@ -834,7 +697,7 @@
   </section>
   <!-- ========================= contact-section end ========================= -->
 
-  <!-- ========================= map-section end ========================= -->
+  <!-- ========================= map-section start ========================= -->
   <section class="map-section map-style-9">
     <div class="map-container">
       <object style="border:0; height: 500px; width: 100%;"
@@ -843,104 +706,5 @@
     </div>
   </section>
   <!-- ========================= map-section end ========================= -->
-
-  <!-- Start Footer Area -->
-  <footer class="footer-area footer-eleven">
-    <!-- Start Footer Top -->
-    <div class="footer-top">
-      <div class="container">
-        <div class="inner-content">
-          <div class="row">
-            <div class="col-lg-4 col-md-6 col-12">
-              <!-- Single Widget -->
-              <div class="footer-widget f-about">
-                <div class="logo">
-                  <a href="index.html">
-                    <img src="assets/images/logo.svg" alt="#" class="img-fluid" />
-                  </a>
-                </div>
-                <p>
-                  Making the world a better place through constructing elegant
-                  hierarchies.
-                </p>
-                <p class="copyright-text">
-                  <span>© 2024 Ayro UI.</span>Designed and Developed by
-                  <a href="javascript:void(0)" rel="nofollow"> Ayro UI </a>
-                </p>
-              </div>
-              <!-- End Single Widget -->
-            </div>
-            <div class="col-lg-2 col-md-6 col-12">
-              <!-- Single Widget -->
-              <div class="footer-widget f-link">
-                <h5>Solutions</h5>
-                <ul>
-                  <li><a href="javascript:void(0)">Marketing</a></li>
-                  <li><a href="javascript:void(0)">Analytics</a></li>
-                  <li><a href="javascript:void(0)">Commerce</a></li>
-                  <li><a href="javascript:void(0)">Insights</a></li>
-                </ul>
-              </div>
-              <!-- End Single Widget -->
-            </div>
-            <div class="col-lg-2 col-md-6 col-12">
-              <!-- Single Widget -->
-              <div class="footer-widget f-link">
-                <h5>Support</h5>
-                <ul>
-                  <li><a href="javascript:void(0)">Pricing</a></li>
-                  <li><a href="javascript:void(0)">Documentation</a></li>
-                  <li><a href="javascript:void(0)">Guides</a></li>
-                  <li><a href="javascript:void(0)">API Status</a></li>
-                </ul>
-              </div>
-              <!-- End Single Widget -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-12">
-              <!-- Single Widget -->
-              <div class="footer-widget newsletter">
-                <h5>Subscribe</h5>
-                <p>Subscribe to our newsletter for the latest updates</p>
-                <form action="#" method="get" target="_blank" class="newsletter-form">
-                  <input name="EMAIL" placeholder="Email address" required="required" type="email" />
-                  <div class="button">
-                    <button class="sub-btn">
-                      <i class="lni lni-envelope"></i>
-                    </button>
-                  </div>
-                </form>
-              </div>
-              <!-- End Single Widget -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/ End Footer Top -->
-  </footer>
-  <!--/ End Footer Area -->
-
-	<div class="made-in-ayroui mt-4">
-		<a href="https://ayroui.com" target="_blank" rel="nofollow">
-		  <img style="width:220px" src="assets/images/ayroui.svg">
-		</a>
-	</div>
-
-  <a href="#" class="scroll-top btn-hover">
-    <i class="lni lni-chevron-up"></i>
-  </a>
-
-  <!--====== js ======-->
-  {{-- <script src="assets/js/bootstrap.bundle.min.js"></script> --}}
-  {{-- <script src="assets/js/glightbox.min.js"></script> --}}
-  {{-- <script src="assets/js/main.js"></script>
-  <script src="assets/js/tiny-slider.js"></script> --}}
-
-  <script>
-
-    //===== close navbar-collapse when a  clicked
-   
-  </script>
-</body>
-
-</html>
+  @endif
+  @endsection
