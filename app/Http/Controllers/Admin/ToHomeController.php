@@ -33,6 +33,6 @@ class ToHomeController extends Controller
      
         $request->session()->regenerateToken();
 
-        return new RedirectResponse("http://localhost:8000"); 
+        return new RedirectResponse($GLOBALS['_ENV']['APP_URL']); 
     }
 }
