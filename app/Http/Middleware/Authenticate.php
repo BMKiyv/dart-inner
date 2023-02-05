@@ -14,8 +14,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+       // dd($request);
         if (! $request->expectsJson()) {
-            return route('first');
+            return route('first',['APP_URL'=>str_replace('http://', '',$GLOBALS['_ENV']['APP_URL'])]);
         }
     }
 }

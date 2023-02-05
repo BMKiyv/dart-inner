@@ -17,12 +17,17 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
+        $admin_from_site = $request->query()?$request->query()['user']: "0";
+        if($admin_from_site === "1"){
+            return $next($request);
+        }
         if(!$user || $user->is_admin===0){
 
             return redirect('login');
            
         }
-        //dd($user);
+
+
         return $next($request);
     }
 }

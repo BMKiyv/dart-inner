@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>admin page</title>
+    @vite(['resources/sass/app.scss','resources/js/bootstrap.bundle.min.js'])
 </head>
 <body>
-    <h1>This is admin page!</h1>
-    <form class="nav-item" action="{{route('logout')}}" method="POST">
-        @csrf
-      <button class="logout"  type="submit">Logout</button>
-    </form>
-    <form class="nav-item" action="{{route('to_home')}}" method="POST">
-        @csrf
-      <button class="logout"  type="submit">To inner site</button>
-    </form>
+    <h1 style="text-align: center">This is admin page!</h1>
+    <div class="container">
+      <div class="row mt-5">
+        <form class="col" action="{{route('logout')}}" method="POST">
+          @csrf
+        <button class="btn btn-info"  type="submit">Logout</button>
+      </form>
+      <form class="col" action="{{route('to_home', ['APP_URL'=>str_replace('http://', '',$GLOBALS['_ENV']['APP_URL'])])}}" method="POST">
+          @csrf
+        <button class="btn btn-secondary"  type="submit">To inner site</button>
+      </form>
+      </div>
+    </div>
+
 </body>
 {{-- <script>
 function setCookie(name, value, options = {}) {

@@ -71,6 +71,11 @@
                     @csrf
                   <button class="logout"  type="submit">Logout</button>
                 </form>
+                @if(Auth::user()->is_admin===1)
+                <li class="nav-item">
+                  <a class="page-scroll-login" style="width: max-content;" href="{{route('admin',[str_replace('http://', '',$GLOBALS['_ENV']['APP_URL']),'user'=>Auth::user()])}}">To admin page</a>
+                </li>
+                @endif
                 <li class="nav-item user-position">
                     <span class="user-name nav-item">{{Auth::user()->name }}</span>
                   </li>

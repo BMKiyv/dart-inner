@@ -1,13 +1,13 @@
 <?php
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 
-class AdminController extends Controller
+class ToHomeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,14 +24,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('admin');
-    }
-    public function to_home (Request $request) {
-//         $prepath = Route::parameters();
-//         //$path = $prepath('http://localhost:8000');
-// dd($prepath);
+
+    public function index (Request $request) {
+
         Auth::logout();
  
         $request->session()->invalidate();

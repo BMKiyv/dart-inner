@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminsiteController;
+use App\Http\Controllers\Admin\ToHomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,30 +18,17 @@ use App\Http\Controllers\AdminController;
 |
 */
 Route::domain('admin.{APP_URL}')->middleware(['isadmin'])->group(function () {
-    Route::get('/', function () {
-        return view('admin');
-    });
-    Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-    
+    Route::get('/', [AdminsiteController::class, 'index'])->name('admin');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/to-home',[ToHomeController::class,'index'])->name('to_home');
+
 });
 
-Route::post('/to-home',[App\Http\Controllers\AdminController::class,'to_home'])->name('to_home');
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('first');
-
-Route::domain('{APP_URL}')->middleware(['isadmin'])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('first');
-    Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+Route::domain('{APP_URL}')->group(function () {
+    Route::get('/', [HomeController::class,'index'])->name('first');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
 })->name('hostdomain');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
-
-//Route::get('',['AdminController@index','prefix'=>'admin', 'middleware'=>'isadmin']);
